@@ -1,4 +1,4 @@
 # school-stuff
-📚anything school related  &nbsp;
-👑personal repository  &nbsp;
+📚anything school related <space>
+👑personal repository <space>
 😎public so that i can clone without opening my account
