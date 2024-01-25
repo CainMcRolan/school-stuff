@@ -1,5 +1,11 @@
 <?php
-  $conn = mysqli_connect("localhost", "root", "", "ledgerdb");
+   try {
+      $conn = mysqli_connect('localhost', 'root', '', 'ledgerdb');
+   }catch(mysqli_sql_exception) {
+      echo "Failed to connect to the server";
+      exit();
+   }
+  
   session_start();
 ?>
 <!DOCTYPE html>
@@ -56,6 +62,7 @@
             <th>Ledger</th>
             <th>Account Number</th>
             <th>Account Name</th>
+            <th>Balance</th>
          </tr>";
          while ($row = mysqli_fetch_assoc($display)) {
             echo "
@@ -75,7 +82,15 @@
                </td>
                <td>{$row['acc_num']}</td>
                <td>{$row['acc_name']}</td>
-            </tr>";
+            ";
+         
+         $display_connection = mysqli_connect('localhost', 'root', '', 'ledgerdb');
+         $display_balance = mysqli_query($display_connection, "SELECT * FROM ledger WHERE acc_number = '{$row['acc_num']}'");
+         $balance = 0;
+         while ($row = mysqli_fetch_assoc($display_balance)) {
+            $balance = intval($row['acc_balance']);
+         }
+         echo "<td>₱$balance</td>";
       } 
    } catch(mysqli_sql_exception) {
       echo "<strong>Cannot connect to the server :<</strong>";
@@ -86,7 +101,7 @@
       $_SESSION['account-num'] = $_POST['direct-acc-num'];
       $_SESSION['account-name'] = $_POST['direct-acc-name'];
       header("Location: ledger.php?acc_num={$_POST['direct-acc-num']}&acc_name={$_POST['direct-acc-name']}");
-    
+   
       exit();
    }
    
