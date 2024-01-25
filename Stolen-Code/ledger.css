@@ -1,0 +1,26 @@
+body{
+    background-color: #dde1e7;
+    margin: 0;
+    padding: 0;
+}
+#divInp{
+    width: 400px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    position: relative;
+    top: 50px;
+    left: 475px;
+    background: white;
+    box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+}
+#Tbl{
+    height: 150px;
+    width: 600px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    position: relative;
+    top: 50px;
+    left: 375px;
+    background: white;
+    box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+}
