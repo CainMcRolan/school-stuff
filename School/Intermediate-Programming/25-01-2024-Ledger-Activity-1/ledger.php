@@ -24,7 +24,8 @@
    }
 </style>
 <body>
-<br><a href=home.php> <input type=button value=Accounts></a>
+<a href=home.php> <input type=button value=Accounts></a>
+<a href="edit.php"><input type="button" value="Edit Account"></a>
    <div class="container">
       <form action="ledger.php" method="post">
          <label>Account Number:</label>
@@ -34,11 +35,9 @@
          <label>Date:</label>
          <input type="date" name="account-date" value="<?php echo date("Y-m-d"); ?>" required>
          <label>Description:</label>
-         <input type="text" name="account-desc" placeholder="" height=30px required>
-         <label>Type:</label>
          <select name="account-goal" required>
-            <option value="debit" select>Debit</option>
-            <option value="credit">Credit</option>
+            <option value="Owners Equity" select>Owners Equity</option>
+            <option value="Liability">Liability</option>
          </select>
          <label>Amount:</label>
          <input type="number" name="account-amount" required>
@@ -57,12 +56,12 @@
             echo "Failed to connect to the server";
          }
 
-         if ($_POST['account-goal'] == "debit") {
+         if ($_POST['account-goal'] == "Owners Equity") {
             $balance += $_POST['account-amount'];
-            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_debit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-desc']}', '{$_POST['account-amount']}', '{$balance}')");
-         } else if ($_POST['account-goal'] == "credit") {
+            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_debit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-goal']}', '{$_POST['account-amount']}', '{$balance}')");
+         } else if ($_POST['account-goal'] == "Liability") {
             $balance -= $_POST['account-amount'];
-            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_credit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-desc']}', '{$_POST['account-amount']}', '{$balance}')");
+            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_credit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-goal']}', '{$_POST['account-amount']}', '{$balance}')");
          }
       }
 
