@@ -16,6 +16,7 @@
    <title>Home</title>
 </head>
 <body>
+   <a href="charts.php"><button>Go to Charts</button></a>
    <div class="container">
       <form action="home.php" method="POST">
          <label>Account Number:</label>

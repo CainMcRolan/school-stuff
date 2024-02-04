@@ -36,8 +36,9 @@
          <input type="date" name="account-date" value="<?php echo date("Y-m-d"); ?>" required>
          <label>Description:</label>
          <select name="account-goal" required>
-            <option value="Owners Equity" select>Owners Equity</option>
-            <option value="Liability">Liability</option>
+            <option value="Owners Equity" select>Debit</option>
+            <option value="Liability">Credit</option>
+            <?php echo "" ?>
          </select>
          <label>Amount:</label>
          <input type="number" name="account-amount" required>

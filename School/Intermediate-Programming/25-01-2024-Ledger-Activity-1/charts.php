@@ -16,6 +16,7 @@
    <title>Charts</title>
 </head>
 <body>
+   <a href="home.php"><button>Back to Accounts</button></a>
    <form action="charts.php" method="post">
       <h1>Charts of Account</h1>
       <label>Name:</label>
@@ -42,7 +43,7 @@
 
 
    echo "<table><tr><th></th><th>Name</th><th>Type</th></tr>";
-   
+
    $display = mysqli_query($conn, "SELECT * FROM chart");
    while ($row = mysqli_fetch_assoc($display)) {
       echo "<tr>
