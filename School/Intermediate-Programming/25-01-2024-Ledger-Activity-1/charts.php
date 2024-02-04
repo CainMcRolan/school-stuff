@@ -34,7 +34,7 @@
 
 <?php
    if (isset($_POST['submit'])) {
-      $insert = mysqli_query($conn, "INSERT INTO chart (acc_type, acc_name) VALUES ('{$_POST['type_name']}', '{$_POST['type_type']}')");
+      $insert = mysqli_query($conn, "INSERT INTO chart (acc_type, acc_name) VALUES ('{$_POST['type_type']}', '{$_POST['type_name']}')");
    }
 
    if (isset($_POST['acc-delete'])) {
@@ -42,7 +42,7 @@
    }
 
 
-   echo "<table><tr><th></th><th>Name</th><th>Type</th></tr>";
+   echo "<table><tr><th></th><th>Type</th><th>Name</th></tr>";
 
    $display = mysqli_query($conn, "SELECT * FROM chart");
    while ($row = mysqli_fetch_assoc($display)) {

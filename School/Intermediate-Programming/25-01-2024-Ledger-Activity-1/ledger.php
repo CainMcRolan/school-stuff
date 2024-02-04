@@ -25,7 +25,7 @@
 </style>
 <body>
 <a href=home.php> <input type=button value=Accounts></a>
-<a href="edit.php"><input type="button" value="Edit Account"></a>
+<!--<a href="edit.php"><input type="button" value="Edit Account"></a>-->
    <div class="container">
       <form action="ledger.php" method="post">
          <label>Account Number:</label>
@@ -36,9 +36,12 @@
          <input type="date" name="account-date" value="<?php echo date("Y-m-d"); ?>" required>
          <label>Description:</label>
          <select name="account-goal" required>
-            <option value="Owners Equity" select>Debit</option>
-            <option value="Liability">Credit</option>
-            <?php echo "" ?>
+            <?php
+                $description = mysqli_query($conn, "SELECT * FROM chart");
+                while ($rows = mysqli_fetch_assoc($description)) {
+                    echo "<option value='{$rows['chart_id']}'>{$rows['acc_name']}</option>";
+                }
+            ?>
          </select>
          <label>Amount:</label>
          <input type="number" name="account-amount" required>
@@ -57,12 +60,15 @@
             echo "Failed to connect to the server";
          }
 
-         if ($_POST['account-goal'] == "Owners Equity") {
-            $balance += $_POST['account-amount'];
-            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_debit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-goal']}', '{$_POST['account-amount']}', '{$balance}')");
-         } else if ($_POST['account-goal'] == "Liability") {
-            $balance -= $_POST['account-amount'];
-            $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_credit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$_POST['account-goal']}', '{$_POST['account-amount']}', '{$balance}')");
+         $description = mysqli_query($conn, "SELECT * FROM chart WHERE chart_id = '{$_POST['account-goal']}'");
+         while ($rows = mysqli_fetch_assoc($description)) {
+             if ($rows['acc_type'] == "owners equity" || $rows['acc_type'] == "asset") {
+                 $balance += $_POST['account-amount'];
+                 $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_debit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$rows['acc_name']}', '{$_POST['account-amount']}', '{$balance}')");
+             } else if ($rows['acc_type'] == "liability") {
+                 $balance -= $_POST['account-amount'];
+                 $result = mysqli_query($conn, "INSERT INTO ledger (acc_number, acc_username, acc_date, acc_desc, acc_credit, acc_balance) VALUES ('{$_SESSION['account-num']}', '{$_SESSION['account-name']}', '{$_POST['account-date']}', '{$rows['acc_name']}', '{$_POST['account-amount']}', '{$balance}')");
+             }
          }
       }
 
