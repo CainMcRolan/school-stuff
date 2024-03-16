@@ -40,8 +40,8 @@ $result = mysqli_query($conn, "SELECT * FROM product WHERE category = '$category
         <tr>
             <th>Code</th>
             <th>Name</th>
-            <th>Stocks</th>
             <th>Price</th>
+            <th>Stocks</th>
             <th>Action</th>
         </tr>
         <?php
