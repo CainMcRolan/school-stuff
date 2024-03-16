@@ -8,13 +8,10 @@
    session_start();
 
    echo '
-   <a href="login.php"><input type="button" value="Move To Login"></a>
-   <a href="delivery.php"><input type="button" value="Move To Delivery"></a>
-   <a href="pullout.php"><input type="button" value="Move To Pullout"></a>
-   <a href="wasteges.php"><input type="button" value="Move To Wasteges"></a>
-   <a href="transfer.php"><input type="button" value="Move To Transfer"></a>
+   <a href="list.php?category=' . urlencode($_GET['category']) . '"><input type="button" value="GO BACK TO PRODUCT LIST"></a>
    '
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

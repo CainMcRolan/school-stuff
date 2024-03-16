@@ -15,7 +15,7 @@ if (isset($_GET['product_add'])) {
     $product_price = $_GET['product_price'];
     $product_category = $_GET['product_category'];
     $result = mysqli_query($conn, "INSERT INTO product (code, name, stocks, price, category) VALUES ('$product_code', '$product_name', '$product_stocks', '$product_price', '$product_category')");
-    
+
     $redirect_url = 'login.php?category=' . urlencode($product_category);
 
     header("Location: " . $redirect_url);
@@ -57,7 +57,7 @@ echo '
         }
         .productsss {
             margin-left: 50px;
-            border: 1px solid black;
+            border: none;
             padding: 10px;
             height: 400px;
         }
@@ -65,7 +65,7 @@ echo '
             width: 90%;
             height: 10%;
             border: 1px solid black;
-            background-color: green;
+            background-color: black;
             margin: 10px;
             cursor: pointer;
             display: flex;
@@ -73,12 +73,18 @@ echo '
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: black;
+            color: white;
             font-size: 30px;
             font-weight: bold;
         }
         .product_caterogy:hover {
             background-color: red;
+        }
+
+        #iframeko {
+            width: 500px;
+            height: 100vh;
+            border: none;
         }
     </style>
 </head>
@@ -93,7 +99,7 @@ echo '
             ?>
         </div>
         <div class="productsss">
-          
+            
             <?php
                 $display = mysqli_query($conn, "SELECT * FROM category WHERE category = '$_GET[category]'");
                 while ($row = mysqli_fetch_assoc($display)) {
@@ -109,7 +115,10 @@ echo '
                         <label>Price:</label>
                         <input type='text' name='product_price'>
                         <input type='submit' value='Add' name='product_add'>
-                    </form>";
+                    </form>
+                    <iframe src='list.php?category=$_GET[category]' id=iframeko></iframe>";
+                    ;
+                    
                 }
             ?>
         </div>

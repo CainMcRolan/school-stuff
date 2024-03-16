@@ -9,11 +9,12 @@
    session_start();
 
    echo '
-      <a href="login.php"><input type="button" value="Move To Login"></a>
-      <a href="delivery.php"><input type="button" value="Move To Delivery"></a>
-      <a href="pullout.php"><input type="button" value="Move To Pullout"></a>
-      <a href="wasteges.php"><input type="button" value="Move To Wasteges"></a>
-      <a href="transfer.php"><input type="button" value="Move To Transfer"></a>
+   <a href="category.php"><input type="button" value="Move To Category"></a>
+   <a href="login.php?category=cake"><input type="button" value="Move To Login"></a>
+   <a href="delivery.php"><input type="button" value="Move To Delivery"></a>
+   <a href="pullout.php"><input type="button" value="Move To Pullout"></a>
+   <a href="wasteges.php"><input type="button" value="Move To Wasteges"></a>
+   <a href="transfer.php"><input type="button" value="Move To Transfer"></a>
    '
 ?>
 <!DOCTYPE html>
