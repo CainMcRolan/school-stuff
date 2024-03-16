@@ -13,7 +13,13 @@ if (isset($_GET['product_add'])) {
     $product_name = $_GET['product_name'];
     $product_stocks = $_GET['product_stocks'];
     $product_price = $_GET['product_price'];
-    $result = mysqli_query($conn, "INSERT INTO product (code, name, stocks, price, category) VALUES ('$product_code', '$product_name', '$product_stocks', '$product_price', '$_GET[category]')");
+    $product_category = $_GET['product_category'];
+    $result = mysqli_query($conn, "INSERT INTO product (code, name, stocks, price, category) VALUES ('$product_code', '$product_name', '$product_stocks', '$product_price', '$product_category')");
+    
+    $redirect_url = 'login.php?category=' . urlencode($product_category);
+
+    header("Location: " . $redirect_url);
+    exit(); 
 }
 
 if (isset($_GET['acc-delete'])) {
@@ -92,44 +98,19 @@ echo '
                 $display = mysqli_query($conn, "SELECT * FROM category WHERE category = '$_GET[category]'");
                 while ($row = mysqli_fetch_assoc($display)) {
                   echo "  <h1>$row[category]</h1>
-                  <form action='login.php?category={$row['category']}' method='get'>
-                  <label>Code:</label>
-                  <input type='number' name='product_code'> <br>
-                  <label>Name:</label>
-                  <input type='text' name='product_name'> <br>
-                  <label>Stocks:</label>
-                  <input type='number' name='product_stocks'> <br>
-                  <label>Price:</label>
-                  <input type='text' name='product_price'>
-                  <input type='submit' value='Add' name='product_add'>
-              </form>";
+                    <form action='login.php?category=$_GET[category]' method='get'>
+                        <input type='hidden' name='product_category' value='$_GET[category]'>
+                        <label>Code:</label>
+                        <input type='number' name='product_code'> <br>
+                        <label>Name:</label>
+                        <input type='text' name='product_name'> <br>
+                        <label>Stocks:</label>
+                        <input type='number' name='product_stocks'> <br>
+                        <label>Price:</label>
+                        <input type='text' name='product_price'>
+                        <input type='submit' value='Add' name='product_add'>
+                    </form>";
                 }
-        
-
-            $display = mysqli_query($conn, "SELECT * FROM product WHERE category='$_GET[category]'");
-            echo "<table style='text-align:center;'>
-                <tr>
-                    <th>Delete</th>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Stocks</th>
-                    <th>Price</th>
-                </tr>";
-            while ($row = mysqli_fetch_assoc($display)) {
-                echo "<tr>
-                    <td>x
-                        <form action='login.php' method='get'>
-                        <input type='hidden' name='acc-delete' value='{$row['code']}'>
-                        <input type='submit' name='submit-delete' value='X'>
-                        </form>
-                    </td>
-                    <td>{$row['code']}</td>
-                    <td><a href='history.php?code={$row['code']}&name={$row['name']}'>{$row['name']}</a></td>
-                    <td>{$row['stocks']}</td>
-                    <td>{$row['price']}</td>
-                </tr>";
-            }
-            echo "</table>";
             ?>
         </div>
     </div>
