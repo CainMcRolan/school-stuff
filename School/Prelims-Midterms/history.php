@@ -21,7 +21,24 @@
 </head>
 <body>
    <h1>History</h1>
+   <form method="POST" action="<?php echo 'history.php?name=' . $_GET['name'] . '&category=' . $_GET['category']; ?>">
+      <input type="text" name="update_value" placeholder="Insert Value">
+      <input type="date" name="update_date">
+      <select name="update_select">
+         <option value="pullout">PullOut</option>
+         <option value="delivery">Deliver</option>
+         <option value="wasteges">Wasteges</option>
+         <option value="transfer">Transfer</option>
+      </select>
+      <input type="submit" name="update_submit" value="Add">
+   </form>
    <?php
+      if (isset($_POST['update-submit'])) { 
+         $result = mysqli_query($conn, "INSERT INTO deliveryproducts (del_date, del_product, del_quantity, type) VALUES ('$_POST[update_date]', '$_GET[name]', '$_POST[update_value]', '$_POST[update_select]')");
+       
+      }
+
+
       $display = mysqli_query($conn, "SELECT * FROM deliveryproducts WHERE del_product = '$_GET[name]'");
       echo "<table style='text-align:center;'>
             <tr>
