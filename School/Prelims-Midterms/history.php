@@ -24,18 +24,23 @@
    <form method="POST" action="<?php echo 'history.php?name=' . $_GET['name'] . '&category=' . $_GET['category']; ?>">
       <input type="text" name="update_value" placeholder="Insert Value">
       <input type="date" name="update_date">
+      <input type="hidden" name="update_name" value=<?php echo "$_GET[name]" ?>>
       <select name="update_select">
-         <option value="pullout">PullOut</option>
-         <option value="delivery">Deliver</option>
-         <option value="wasteges">Wasteges</option>
-         <option value="transfer">Transfer</option>
+         <option value="Pullout">PullOut</option>
+         <option value="Delivery">Deliver</option>
+         <option value="Waste">Wasteges</option>
+         <option value="Transfer">Transfer</option>
       </select>
       <input type="submit" name="update_submit" value="Add">
    </form>
    <?php
-      if (isset($_POST['update-submit'])) { 
-         $result = mysqli_query($conn, "INSERT INTO deliveryproducts (del_date, del_product, del_quantity, type) VALUES ('$_POST[update_date]', '$_GET[name]', '$_POST[update_value]', '$_POST[update_select]')");
-       
+      if (isset($_POST['update_submit'])) { 
+            $result = mysqli_query($conn, "INSERT INTO deliveryproducts (del_date, del_product, del_quantity, type) VALUES ('$_POST[update_date]', '$_POST[update_name]', '$_POST[update_value]', '$_POST[update_select]')");
+            if ($_POST['update_select'] == 'Transfer') {
+               $result = mysqli_query($conn, "INSERT INTO transfer (date, reason, product, quantity) VALUES ('$_POST[update_date]', '', '$_POST[update_name]', '$_POST[update_value]')");
+            } else if ($_POST['update_select'] == 'Waste') {
+               $result = mysqli_query($conn, "INSERT INTO wasteges (date, reason, product, quantity) VALUES ('$_POST[update_date]', '', '$_POST[update_name]', '$_POST[update_value]')");
+            }
       }
 
 
