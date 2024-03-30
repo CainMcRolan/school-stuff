@@ -43,6 +43,11 @@ echo '
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
     <style>
+        body, html {
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
         .container {
             display: flex;
             margin-top: 30px;
@@ -60,6 +65,7 @@ echo '
             border: none;
             padding: 10px;
             height: 400px;
+            width: 50%;
         }
         .product_caterogy {
             width: 90%;
@@ -82,9 +88,63 @@ echo '
         }
 
         #iframeko {
-            width: 500px;
+            width: 100%;
             height: 100vh;
             border: none;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100vh; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            height: 50%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        } 
+
+        #myBtn {
+            border: none;
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            text-decoration: underline;
+            background-color: transparent;
+            text-align: left;
+            text-decoration-color: purple;
+        }
+
+        #myBtn:hover {
+            color: red;
         }
     </style>
 </head>
@@ -116,12 +176,39 @@ echo '
                         <input type='text' name='product_price'>
                         <input type='submit' value='Add' name='product_add'>
                     </form>
+
+                    <button id=myBtn>Open Product List for $_GET[category]</button>
+                  
+                    <div id='myModal' class='modal'>
+                        <div class='modal-content'>
+                            <span class='close'>&times;</span>
+                            <iframe src='list.php?category=$_GET[category]' id=iframeko></iframe>
+                        </div>
+                    </div>
                     <iframe src='list.php?category=$_GET[category]' id=iframeko></iframe>";
-                    ;
-                    
                 }
             ?>
         </div>
     </div>
+    <script>
+        let modal = document.getElementById("myModal");
+
+        let btn = document.getElementById("myBtn");
+
+        let span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+        modal.style.display = "block";
+        }
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        } 
+    </script>
 </body>
 </html>

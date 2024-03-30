@@ -35,7 +35,6 @@ $result = mysqli_query($conn, "SELECT * FROM product WHERE category = '$category
     </style>
 </head>
 <body>
-    <h2>Product List for <?php echo $category; ?></h2>
     <table>
         <tr>
             <th>Code</th>
