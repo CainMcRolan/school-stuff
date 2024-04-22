@@ -24,7 +24,7 @@ body,html{
    padding: 20px;
    border: 1px solid #888;
    width: 20%; /* Could be more or less, depending on screen size */
-   height: 10%;
+   height: 30%;
   
 }
 
@@ -46,7 +46,8 @@ body,html{
 .container{
    display: grid;
    font-size: 30px;
-   grid-template-columns: 100px 150px 100px;
+   grid-template-columns: 150px 100px;
+
    row-gap: 10px;
 }
 

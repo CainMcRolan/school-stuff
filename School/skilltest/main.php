@@ -43,32 +43,32 @@ if (isset($_POST['product_add'])) {
    <?php
       echo "<button id=myBtn>Add</button>";
 
-      $total = 0;
+         $total = 0;
 
-      $display = mysqli_query($conn, "SELECT * FROM products");
-      echo "<table>
-            <tr>
-               <th>Code</th>
-               <th>Desc</th>
-               <th>Qty</th>
-               <th>Price</th>
-               <th>Amount</th>
-            </tr>";
-      while ($row = mysqli_fetch_assoc($display)) {
-         echo "<tr>
-                  <td>{$row['code']}</td>
-                  <td>{$row['description']}</td>
-                  <td>{$row['quantity']}</td>
-                  <td>{$row['price']}</td>
-                  <td>{$row['amount']}</td>
+         $display = mysqli_query($conn, "SELECT * FROM products");
+         echo "<table>
+               <tr>
+                  <th>Code</th>
+                  <th>Desc</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>Amount</th>
                </tr>";
-         
-         $total+=$row['amount'];
-      }
-      echo "<tr>
-               <td></td><td></td><td></td><td>Total</td><td>$total</td>
-            </tr>
-      </table>";  
+         while ($row = mysqli_fetch_assoc($display)) {
+            echo "<tr>
+                     <td>{$row['code']}</td>
+                     <td>{$row['description']}</td>
+                     <td>{$row['quantity']}</td>
+                     <td>{$row['price']}</td>
+                     <td>{$row['amount']}</td>
+                  </tr>";
+            
+            $total+=$row['amount'];
+         }
+         echo "<tr>
+                  <td></td><td></td><td></td><td>Total</td><td>$total</td>
+               </tr>
+         </table>";  
 
       echo "
          <div id='myModal' class='modal'>
